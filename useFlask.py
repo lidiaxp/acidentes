@@ -3,7 +3,7 @@ import json
 from flask import request, jsonify
 import pandas as pd
 
-df = pd.read_csv ('acidenteTransito.csv', sep=",") 
+#df = pd.read_csv ('acidenteTransito.csv', sep=",") 
 # print(df["km"])
 
 app = flask.Flask(__name__)
