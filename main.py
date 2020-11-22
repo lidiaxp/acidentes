@@ -11,12 +11,11 @@ app.config["DEBUG"] = True
 
 @app.route('/', methods=['GET'])
 def home():
-    return '''<h1>Distant Reading Archive</h1>
-<p>A prototype API for distant reading of science fiction novels.</p>'''
+    return '''<h1>API para acidentes no transito</h1>'''
 
 @app.route('/all', methods=['GET'])
 def api_all():
-    result = df.to_json(orient="index")
+    result = df[:50000].to_json(orient="index")
     parsed = json.loads(result)
     data = json.dumps(parsed, indent=4)
     return jsonify(data)
