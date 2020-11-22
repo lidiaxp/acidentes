@@ -4,10 +4,8 @@ from flask import request, jsonify
 import pandas as pd
 
 df = pd.read_csv ('acidenteTransito.csv', sep=",") 
-# print(df["km"])
 
 app = flask.Flask(__name__)
-app.config["DEBUG"] = True
 
 @app.route('/', methods=['GET'])
 def home():
@@ -68,6 +66,30 @@ def api_km():
     parsed = json.loads(result)
     data = json.dumps(parsed, indent=4)
     return jsonify(data)
+
+@app.route('/fatais', methods=['GET'])
+def api_fatais():
+    fatais = []
+    for i in range(len(df["class"])):
+        if df["class"][i] == 3:
+            fatais.append({"lat": df["lat"][i], "long": df["long"][i]})
+    return jsonify(fatais)
+
+@app.route('/acidentesLeves', methods=['GET'])
+def api_acidentesLeves():
+    acidentesLeves = []
+    for i in range(len(df["class"])):
+        if df["class"][i] == 1:
+            acidentesLeves.append({"lat": df["lat"][i], "long": df["long"][i]})
+    return jsonify(acidentesLeves)
+
+@app.route('/acidentesPesados', methods=['GET'])
+def api_acidentesPesados():
+    acidentesPesados = []
+    for i in range(len(df["class"])):
+        if df["class"][i] == 2:
+            acidentesPesados.append({"lat": df["lat"][i], "long": df["long"][i]})
+    return jsonify(acidentesPesados)
 
 if __name__ == '__main__': app.run(debug=True)
 # app.run()
